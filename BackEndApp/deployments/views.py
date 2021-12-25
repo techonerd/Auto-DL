@@ -129,7 +129,7 @@ def cloud_deploy(request):
         pkl_file_content = bytearray(pkl_file_bytes.values())
 
         pkl_dir = os.path.join(project_dir, "pickle")
-        pkl_path = os.path.join(pkl_dir, f"model.pkl")
+        pkl_path = os.path.join(pkl_dir, 'model.pkl')
 
         # Appending pickle chunks
         append_pkl_contents(pkl_dir, pkl_path, pkl_file_content)
@@ -223,7 +223,7 @@ def hybrid_deploy(request):
         pkl_file_content = bytearray(pkl_file_bytes.values())
 
         pkl_dir = os.path.join(project_dir, "pickle")
-        pkl_path = os.path.join(pkl_dir, f"model.pkl")
+        pkl_path = os.path.join(pkl_dir, 'model.pkl')
 
         # Appending pickle chunks
         append_pkl_contents(pkl_dir, pkl_path, pkl_file_content)

@@ -67,4 +67,4 @@ def test_delete(mocker):
 
     otp.create()
     otp.delete()
-    assert collection.find_one({"useraname": username}) == None
+    assert collection.find_one({"useraname": username}) is None

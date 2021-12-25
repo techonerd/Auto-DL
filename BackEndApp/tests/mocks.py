@@ -14,12 +14,10 @@ class MockOS:
 
 class MockUser:
     def mock_user(self):
-        user = {"username": "trial", "email": "trial@gmail.com"}
-        return user
+        return {"username": "trial", "email": "trial@gmail.com"}
 
     def mock_none_user(self):
         return None
 
     def mock_wrong_user(self):
-        user = {"username": None, "email": None}
-        return user
+        return {"username": None, "email": None}

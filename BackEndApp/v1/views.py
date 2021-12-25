@@ -49,10 +49,12 @@ def generate(request):
     lib = metadata.get("lib", "keras").lower()
     lang = metadata.get("lang", "python").lower()
 
-    meta_params = {}
-    meta_params["lib"] = lib
-    meta_params["lang"] = lang
-    meta_params["dataset-path"] = metadata.get("data_dir", ".")
+    meta_params = {
+        'lib': lib,
+        'lang': lang,
+        'dataset-path': metadata.get("data_dir", "."),
+    }
+
     meta_params["save_plots"] = training_params["plot"]
     meta_params.update(preprocessing)
 
@@ -94,7 +96,7 @@ def train(request):
     try:
         # TODO: Run using python and capture logs.
         user_os = sys.platform
-        if user_os == "linux" or user_os == "linux2":
+        if user_os in ["linux", "linux2"]:
             os.system("gnome-terminal -e ./train.sh")
         elif user_os == "win32":
             os.system("start cmd /k call train.bat")
@@ -211,7 +213,7 @@ def edit_project(request):
         owner = request.data.get("owner")
         store_obj = Store(user)
 
-        if owner and not owner == username:
+        if owner and owner != username:
             project_id = "shared_" + project_id
 
         if not store_obj.exist(project_id):
@@ -270,9 +272,10 @@ def delete_project(request):
 
             with open(project_dir + os.sep + "meta.json", "r") as f:
                 metadata = json.load(f)
-            if metadata.get("shared_with", None):
-                if username in metadata.get("shared_with"):
-                    metadata["shared_with"].remove(username)
+            if metadata.get("shared_with", None) and username in metadata.get(
+                "shared_with"
+            ):
+                metadata["shared_with"].remove(username)
             with open(project_dir + os.sep + "meta.json", "w") as f:
                 json.dump(metadata, f)
 
