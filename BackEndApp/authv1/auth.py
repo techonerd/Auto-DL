@@ -50,15 +50,12 @@ class Token:
         decoded = jwt.decode(self.token, secret, algorithms="HS256")
         decoded["expire"] = datetime.strptime(decoded.get("expire"), DATE_FORMAT)
 
-        if (
+        return (
             decoded.get("username") == self.user.get("username")
             and decoded.get("email") == self.user.get("email")
             and decoded.get("expire") == self.expire
             and decoded.get("expire") >= datetime.now()
-        ):
-            return True
-
-        return False
+        )
 
 
 class OTP:
@@ -102,9 +99,7 @@ class OTP:
         stored_otp = user_obj.get("otp")
         otp_expire = user_obj.get("expire")
         self.delete()
-        if otp_expire > datetime.now() and stored_otp == otp_recieved:
-            return True
-        return False
+        return otp_expire > datetime.now() and stored_otp == otp_recieved
 
     def delete(self):
         self.collection.delete_one({"username": self.username})

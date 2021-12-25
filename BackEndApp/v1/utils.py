@@ -63,8 +63,7 @@ def encrypt(txt):
 def decrypt(txt):
     txt = base64.urlsafe_b64decode(txt)
     cipher_suite = Fernet(os.getenv("ENCRYPTION_KEY"))
-    decoded_text = cipher_suite.decrypt(txt).decode("ascii")
-    return decoded_text
+    return cipher_suite.decrypt(txt).decode("ascii")
 
 
 def generate_git_access_token(code):

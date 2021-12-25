@@ -49,7 +49,7 @@ def test_find(mocker):
     session_obj_none = test_session.create_none_session()
     test_token_none = session_obj_none.create()
     return_token_none = session_obj_none.find(test_token_none)
-    assert return_token_none == None
+    assert return_token_none is None
 
 
 def test_verify(mocker):
